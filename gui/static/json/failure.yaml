@@ -1,0 +1,7 @@
+failure:
+- duration: 0
+  label: ''
+  level: 1
+  nodeName: ''
+  startAfter: 0
+  type: ''

@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ethereum Configuration</title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/styles/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../static/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" href="../static/styles/extras.1.1.0.min.css">
+    <script async defer src="../static/scripts/buttons.js"></script>
+		<script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
+		<script src="../static/scripts/FileSaver.js"></script>
+
+  </head>
+  <body class="h-100">
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main Sidebar -->
+        <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+          <div class="main-navbar">
+            <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+              <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="../static/images/shards-dashboards-logo.svg" alt="Shards Dashboard">
+                  <span class="d-none d-md-inline ml-1">PerTether</span>
+                </div>
+              </a>
+              <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+            </nav>
+          </div>
+          <div class="nav-wrapper">
+            <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link " href="/experiment">
+                  <i class="material-icons">table_chart</i>
+                  <span>Ethereum Configuration</span>
+                </a>
+              </li>
+                <!-- <li class="nav-item">
+							  <a class="nav-link " href="/testConfig">
+							    <i class="material-icons">note_add</i>
+							    <span>Test Configuration</span>
+							  </a>
+                </li> -->
+            </ul>
+          </div>
+        </aside>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+          <div class="main-navbar sticky-top bg-white">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                <div class="input-group input-group-seamless ml-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+
+                    </div>
+                  </div>
+                  </div>
+              </form>
+              <ul class="navbar-nav border-left flex-row " style="float: right">
+                <li class="nav-item ">
+                  <a class="nav-link text-nowrap px-3" href="/list" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar  mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Test List</span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link text-nowrap px-3" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4">
+            <!-- Page Header -->
+            <div class="page-header row no-gutters py-4 mb-3 border-bottom">
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <!--<span class="text-uppercase page-subtitle">Overview</span>-->
+                <h3 class="page-title">Configuration</h3>
+                <!--(Tips:If you enter multiple values, please separate them with spaces.)-->
+              </div>
+            </div>
+            <!-- End Page Header -->
+              <div class="row">
+			  <div class="col-lg-12">
+                <div class="card card-small mb-4">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                      <div class="row">
+                        <div class="col">
+                          <form name="input" action="/deal/" method="post">
+                              <div class="form-row">
+                                  <span><b>&nbsp;&nbsp;Difficulty</b></span>
+                              </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <input type="text" class="form-control" name="Difficulty" id="Difficulty" placeholder="Difficulty" required="required">
+                              </div>
+                            </div>
+                              <div class="form-row">
+                                  <span><b>&nbsp;&nbsp;GasLimit</b></span>
+                              </div>
+                            <div class="form-row">
+                              <div class="form-group col-md-12">
+                                <input type="text" name="gaslimit" class="form-control" id="gaslimit" placeholder="GasLimit" required="required" >
+                              </div>
+                            </div>
+                              <div class="form-row">
+                                  <span><b>&nbsp;&nbsp;Node Count</b></span>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-12">
+										<input type="number" name="node_count" class="form-control" id="node_count" placeholder="Node Count" value="4" required="required" readonly>
+                                </div>
+                              </div>
+                              <div class="form-row">
+                                  <span><b>&nbsp;&nbsp;Miner Count</b></span>
+                              </div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-12">
+										<input type="number" name="miner_count" class="form-control" id="miner_count" placeholder="Miner Count" value="2" required="required" readonly>
+                                </div>
+                              </div>
+                              <div class="form-row"><span><b>&nbsp;&nbsp;Client Type</b></span></div>
+                              <div class="form-row">
+                                  <div class="form-group col-md-12">
+                              	<select id="client_type" name="client_type" class="form-control" readonly>
+                              	  <option value="geth" selected>geth</option>
+                              	</select>
+                                </div>
+
+                              </div>
+                              <button type='submit' id='nextbtn' class='btn btn-accent' style="width: 100px;float: right">Next</button>
+                          </form>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              </div>
+              <br>
+            <!-- End Default Light Table -->
+          </div>
+                       
+
+          <footer class="main-footer d-flex bg-white border-top">
+
+            <span class="copyright " style="text-align: center; margin: 30px 450px;">Copyright © 2019 </span>
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <script src="../static/scripts/jquery.min.js"  ></script>
+    <script src="../static/scripts/popper.min.js"  ></script>
+    <script src="../static/scripts/bootstrap.min.js" ></script>
+    <script src="../static/scripts/Chart.min.js"></script>
+    <script src="../static/scripts/shards.min.js"></script>
+    <script src="../static/scripts/jquery.sharrre.min.js"></script>
+    <script src="../static/scripts/extras.1.1.0.min.js"></script>
+    <script src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+    <script src="../static/scripts/app/app-components-overview.1.1.0.js"></script>
+  </body>
+</html>

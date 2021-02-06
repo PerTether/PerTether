@@ -1,0 +1,472 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Detailed Test Result</title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/styles/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../static/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" href="../static/styles/extras.1.1.0.min.css">
+    <script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/echarts.min.js"></script>
+
+  </head>
+  <body class="h-100">
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main Sidebar -->
+        <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+          <div class="main-navbar">
+            <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+              <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="../static/images/shards-dashboards-logo.svg" alt="Shards Dashboard">
+                  <span class="d-none d-md-inline ml-1">PerTether</span>
+                </div>
+              </a>
+              <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+            </nav>
+          </div>
+          <div class="nav-wrapper">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link " href="/list">
+                  <i class="material-icons">note_add</i>
+                  <span>Main Page</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+          <div class="main-navbar sticky-top bg-white">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                <div class="input-group input-group-seamless ml-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+
+                    </div>
+                  </div>
+                  </div>
+              </form>
+              <ul class="navbar-nav border-left flex-row " style="float: right">
+                <li class="nav-item border-right dropdown notifications">
+                  <a name="download" class="nav-link text-nowrap px-3" href="/detailedResult/?id={{ test.id }}&type={{ next_type }}" role="button" aria-haspopup="true" aria-expanded="false">
+                      <img class="user-avatar  mr-2" src="../static/images/avatars/download.png" alt="User Avatar">
+                      <span class="d-none d-md-inline-block">{{ next_type|title }} Result</span>
+                    </a>
+                  </li>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link text-nowrap px-3" href="/experiment" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar  mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Configuration</span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link text-nowrap px-3" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4" style="overflow-x: scroll">
+            <!-- Page Header -->
+            <div class="page-header row no-gutters py-4 mb-3 ">
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <!--<span class="text-uppercase page-subtitle">Overview</span>-->
+                <h3 class="page-title">Testing Results</h3>
+              </div>
+            </div>
+            <!-- End Page Header -->
+           <div class="col-lg-12">
+               <div class="card card-small mb-4">
+
+                   <div class="row">
+                       <div class="col-lg-12" style="text-align: center; ">
+                           <table id="info" class="table mb-0" >
+                               <thead style="font-weight: bold;">
+                               <tr>
+                                   <td style="vertical-align: middle;" rowspan="2">Period</td>
+                                   <td style="vertical-align: middle;" rowspan="2">From</td>
+                                   <td style="vertical-align: middle;" rowspan="2">To</td>
+                                   <td colspan="2">Throughput</td>
+                                   <td colspan="2">Latency</td>
+                                   <td colspan="2">Success Rate</td>
+                               </tr>
+                               <tr>
+                                   <td>Mean</td>
+                                   <td>Median</td>
+                                   <td>Mean</td>
+                                   <td>Median</td>
+                                   <td>Mean</td>
+                                   <td>Median</td>
+                               </tr>
+                               </thead>
+                               <tr>
+                                   <td>whole process</td>
+                                   <td>0</td>
+                                   <td>{{ test.duration }}</td>
+                                   <td>{{ total_metrics.0 }}</td>
+                                   <td>{{ total_metrics.3 }}</td>
+                                   <td>{{ total_metrics.1 }}</td>
+                                   <td>{{ total_metrics.4 }}</td>
+                                   <td>{{ total_metrics.2 }}</td>
+                                   <td>{{ total_metrics.5 }}</td>
+                               </tr>
+                           {% if before %}
+                               <tr>
+                                   <td style="color: green">before failure</td>
+                                   <td>0</td>
+                                   <td>{{ before }}</td>
+                                   <td>{{ before_metrics.0 }}</td>
+                                   <td>{{ before_metrics.3 }}</td>
+                                   <td>{{ before_metrics.1 }}</td>
+                                   <td>{{ before_metrics.4 }}</td>
+                                   <td>{{ before_metrics.2 }}</td>
+                                   <td>{{ before_metrics.5 }}</td>
+                               </tr>
+                               {% for f in failure_metrics %}
+                                   <tr>
+                                   <td style="color: red">{{ f.label }}</td>
+                                   <td>{{ f.start }}</td>
+                                   <td>{{ f.finish }}</td>
+                                   <td>{{ f.metrics.0 }}</td>
+                                   <td>{{ f.metrics.3 }}</td>
+                                   <td>{{ f.metrics.1 }}</td>
+                                   <td>{{ f.metrics.4 }}</td>
+                                   <td>{{ f.metrics.2 }}</td>
+                                   <td>{{ f.metrics.5 }}</td>
+                                   </tr>
+                               {% endfor %}
+                               <tr>
+                                   <td style="color: orangered">after failure</td>
+                                   <td>{{ after }}</td>
+                                   <td>{{ test.duration }}</td>
+                                   <td>{{ after_metrics.0 }}</td>
+                                   <td>{{ after_metrics.3 }}</td>
+                                   <td>{{ after_metrics.1 }}</td>
+                                   <td>{{ after_metrics.4 }}</td>
+                                   <td>{{ after_metrics.2 }}</td>
+                                   <td>{{ after_metrics.5 }}</td>
+                               </tr>
+                           {% endif %}
+                           {% if period_metrics %}
+                               {% for p in period_metrics %}
+                                   <tr>
+                                   <td style="color: orangered">period {{  forloop.counter }} </td>
+                                   <td>{% widthratio forloop.counter0 1 test.loadConfig.period  %}</td>
+                                   <td>{% widthratio forloop.counter 1 test.loadConfig.period  %}</td>
+                                   <td>{{ p.0 }}</td>
+                                   <td>{{ p.3 }}</td>
+                                   <td>{{ p.1 }}</td>
+                                   <td>{{ p.4 }}</td>
+                                   <td>{{ p.2 }}</td>
+                                   <td>{{ p.5 }}</td>
+                               </tr>
+                               {% endfor %}
+
+                           {% endif %}
+                           </table>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div class="col-lg-12">
+              <div class="card card-small mb-4">
+                  <div class="row">
+                      <div id="throughput" class="col-lg-12" style="height: 400px">
+
+                      </div>
+                  </div>
+
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <div class="card card-small mb-4">
+                  <div class="row">
+                      <div id="latency" class="col-lg-12" style="height: 400px">
+
+                      </div>
+                  </div>
+              </div>
+            </div>
+          {% if before %}
+            <div class="col-lg-12">
+              <div class="card card-small mb-4">
+                  <div class="row">
+                      <div id="successRate" class="col-lg-12" style="height: 400px">
+
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+        {% endif %}
+            <!-- End Default Light Table -->
+
+
+          <footer class="main-footer d-flex bg-white border-top">
+
+            <span class="copyright " style="text-align: center; margin: 30px 450px;">Copyright © 2019 </span>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('throughput'));
+            option = {
+                dataset: {
+                dimensions: [
+                    {name: 'time', type: 'int'},
+                    {name: 'throughput', type: 'int'},
+                ],
+                source: {{ test.result.0.throughput }}
+                },
+            title: {
+                text: 'Throughput',
+                subtext: 'in seconds'
+            },
+            color: 'green',
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis:  {
+                type: 'value',
+                interval: 60
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} tx'
+                },
+                axisPointer: {
+                    snap: true
+                },
+                max: 'dataMax'
+            },
+            series: [
+                {
+                    name:'throughput',
+                    type:'line',
+                    smooth: true,
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: 'time',
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 'throughput'
+                    },
+                    markArea: {
+                        label:{
+                            color: 'red'
+                        },
+                        itemStyle: {
+                            color: 'red',
+                            opacity: 0.35,
+                        },
+                        data: [
+                            {% for f in test.failure %}
+                            [{
+                            name: '{{ f.label }}',
+                            xAxis: {{ f.startAfter }},
+                            yAxis: 'max'
+                        }, {
+                            xAxis: {{ f.startAfter|add:f.duration }},
+                            yAxis: 'min'
+                        }],
+                            {% endfor %}
+                        ]
+                    }
+                }
+            ]
+        };
+     myChart.setOption(option);
+
+     var myLChart = echarts.init(document.getElementById('latency'));
+            lOption = {
+                dataset: {
+                dimensions: [
+                    {name: 'time', type: 'int'},
+                    {name: 'latency', type: 'int'},
+                ],
+                source: {{ test.result.0.latency }}
+                },
+            title: {
+                text: 'Latency',
+                subtext: 'in seconds'
+            },
+            color: 'blue',
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis:  {
+                type: 'value',
+                interval: 60
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value} ms'
+                },
+                axisPointer: {
+                    snap: true
+                },
+                max: 'dataMax'
+            },
+            series: [
+                {
+                    name:'latency',
+                    type:'line',
+                    smooth: true,
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: 'time',
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 'latency'
+                    },
+                    markArea: {
+                        label:{
+                            color: 'red'
+                        },
+                        itemStyle: {
+                            color: 'red',
+                            opacity: 0.35,
+                        },
+                        data: [
+                            {% for f in test.failure %}
+                            [{
+                            name: '{{ f.label }}',
+                            xAxis: {{ f.startAfter }},
+                            yAxis: 'max'
+                        }, {
+                            xAxis: {{ f.startAfter|add:f.duration }},
+                            yAxis: 'min'
+                        }],
+                            {% endfor %}
+                        ]
+                    }
+                }
+            ]
+        };
+     myLChart.setOption(lOption);
+{% if before %}
+     var mySChart = echarts.init(document.getElementById('successRate'));
+            sOption = {
+                dataset: {
+                dimensions: [
+                    {name: 'time', type: 'int'},
+                    {name: 'success rate', type: 'float'},
+                ],
+                source: {{ test.result.0.success_rate }}
+                },
+            title: {
+                text: 'Success Rate',
+                subtext: 'in seconds'
+            },
+            color: 'red',
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis:  {
+                type: 'value',
+                interval: 60
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    formatter: '{value}'
+                },
+                axisPointer: {
+                    snap: true
+                },
+                max: 1
+            },
+            series: [
+                {
+                    name:'success rate',
+                    type:'line',
+                    smooth: true,
+                    encode: {
+                        // 将 "amount" 列映射到 X 轴。
+                        x: 'time',
+                        // 将 "product" 列映射到 Y 轴。
+                        y: 'latency'
+                    },
+                    markArea: {
+                        label:{
+                            color: 'red'
+                        },
+                        itemStyle: {
+                            color: 'red',
+                            opacity: 0.35,
+                        },
+                        data: [
+                            {% for f in test.failure %}
+                            [{
+                            name: '{{ f.label }}',
+                            xAxis: {{ f.startAfter }},
+                            yAxis: 1
+                        }, {
+                            xAxis: {{ f.startAfter|add:f.duration }},
+                            yAxis: 'min'
+                        }],
+                            {% endfor %}
+                        ]
+                    }
+                }
+            ]
+        };
+        mySChart.setOption(sOption);
+        {% endif %}
+    </script>
+    <script src="../static/scripts/jquery.min.js" ></script>
+    <script src="../static/scripts/popper.min.js" ></script>
+    <script src="../static/scripts/bootstrap.min.js" ></script>
+    <script src="../static/scripts/Chart.min.js"></script>
+    <script src="../static/scripts/shards.min.js"></script>
+    <script src="../static/scripts/jquery.sharrre.min.js"></script>
+    <script src="../static/scripts/extras.1.1.0.min.js"></script>
+    <script src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+    <script src="../static/scripts/app/app-components-overview.1.1.0.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+{"difficulty": ["0x0"], "gasLimit": ["4712388"], "nodeCount": 4, "startUpType": "docker", "clientType": "geth", "minerCount": 2, "startTps": 32, "duration": 300, "smartContract": "HelloWorld", "failure": [{"type": "smartContract", "startAfter": 120, "duration": 120, "level": 2, "label": "smartContract level 2", "contractName": "BadPerformance"}]}

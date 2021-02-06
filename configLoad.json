@@ -1,0 +1,12 @@
+{
+	"difficulty": ["0x0"],
+	"gasLimit": [10000000],
+	"nodeCount": 4,
+	"minerCount": 2,
+	"startUpType": "docker",
+	"clientType": "geth",
+    "startTps": 2,
+    "duration": 120,
+    "smartContract": "HelloWorld",
+    "finishTps": 16
+}

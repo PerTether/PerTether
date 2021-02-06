@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+
+  bootnode:
+    container_name: bootnode
+    image: ethereum/client-go:alltools-v1.8.26
+    command: bootnode -nodekey=bootnode.key -addr 172.19.0.254:30301
+    working_dir: /data
+    volumes:
+    - ./tmp/bootnode:/data
+    networks:
+      etherNet:
+        ipv4_address: 172.19.0.254
+    ports:
+    - 30301:30301
+
+  node0:
+    container_name: node0
+    image: ethereum/client-go:alltools-v1.8.26
+    command: sh ./work/start_geth.sh
+    working_dir: /node0
+    volumes:
+    - ./tmp/node0/keystore:/node0/keystore
+    - ./tmp/node0/work:/node0/work
+    ports:
+    - 8545:8545
+    - 30303:30303
+    networks:
+      etherNet:
+        ipv4_address: 172.19.0.2
+    depends_on:
+    - bootnode
+
+
+  node1:
+    container_name: node1
+    image: ethereum/client-go:alltools-v1.8.26
+    command: sh ./work/start_geth.sh
+    working_dir: /node1
+    volumes:
+    - ./tmp/node1/keystore:/node1/keystore
+    - ./tmp/node1/work:/node1/work
+    ports:
+    - 9545:8545
+    - 30304:30303
+    networks:
+      etherNet:
+        ipv4_address: 172.19.0.3
+    depends_on:
+    - bootnode
+
+  node2:
+    container_name: node2
+    image: ethereum/client-go:alltools-v1.8.26
+    command: sh ./work/start_geth.sh
+    working_dir: /node2
+    volumes:
+    - ./tmp/node2/keystore:/node2/keystore
+    - ./tmp/node2/work:/node2/work
+    ports:
+    - 10545:8545
+    - 30305:30303
+    networks:
+      etherNet:
+        ipv4_address: 172.19.0.4
+    depends_on:
+    - bootnode
+
+  node3:
+    container_name: node3
+    image: ethereum/client-go:alltools-v1.8.26
+    command: sh ./work/start_geth.sh
+    working_dir: /node3
+    volumes:
+    - ./tmp/node3/keystore:/node3/keystore
+    - ./tmp/node3/work:/node3/work
+    ports:
+    - 11545:8545
+    - 30306:30303
+    networks:
+      etherNet:
+        ipv4_address: 172.19.0.5
+    depends_on:
+    - bootnode
+
+networks:
+  etherNet:
+    ipam:
+      config:
+      - subnet: 172.19.0.0/16

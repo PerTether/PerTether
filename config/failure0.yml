@@ -1,0 +1,7 @@
+failure:
+- type: nodeFailure
+  startAfter: 10
+  duration: 20
+  level: 1
+  nodeName: node1
+  label: node failure test

@@ -1,0 +1,25 @@
+{
+	"difficulty": ["0xff"],
+	"gasLimit": [10000000],
+	"nodeCount": 4,
+	"minerCount": 2,
+	"startUpType": "docker",
+	"clientType": "geth",
+    "startTps": 4,
+    "duration": 600,
+    "smartContract": "HelloWorld",
+    "loadConfig": {
+	    		"period": 10,
+					"doubleTimes": 7
+						},
+	"failures": [
+		{
+			"type": "nodeFailure",
+			"startAfter": 10,
+			"duration": 20,
+			"level": 1,
+			"nodeName": "node1",
+			"label": "node failure test"
+		}
+	]
+}

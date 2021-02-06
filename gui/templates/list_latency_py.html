@@ -1,0 +1,340 @@
+<!doctype html>
+<html class="no-js h-100" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Latency</title>
+    <meta name="description" content="A high-quality &amp; free Bootstrap admin dashboard template pack that comes with lots of templates and components.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="../static/styles/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" id="main-stylesheet" data-version="1.1.0" href="../static/styles/shards-dashboards.1.1.0.min.css">
+    <link rel="stylesheet" href="../static/styles/extras.1.1.0.min.css">
+    <script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/ichart.1.2.1.min.js"></script>
+    <script type="text/javascript">
+      var existsArr={{ existsArr|safe }}
+      count=existsArr.length;
+      var difficulty={{ difficulty|safe }}
+      var blockGasLimit={{ gaslimit|safe }}
+      var alllabels={{ labelAll|safe }}
+      var allvalues={{ valueAll|safe }}
+      var timeAll={{ timestampAll|safe }}
+       n=difficulty.length;
+       m=blockGasLimit.length;
+       num=n*m;
+       var imgurls=[];
+    $(function(){
+
+        $("#info").append("<tr id='headinfo'></tr>");
+        $('#headinfo').append("<th>Index</th><th>Difficulty</th><th>GasLimit</th><th>State</th><th>Time</th>");
+        for(var i=0;i<count;i++){
+            $("#info").append("<tr id='infotr" + i + "'></tr>");
+            $("#infotr" + i + "").append("<td >"+(i+1)+"</td>");
+            $("#infotr" + i + "").append("<td >"+difficulty[i%n]+"</td>");
+            $("#infotr" + i + "").append("<td >"+blockGasLimit[Math.floor(i/n)]+"</td>");
+            if (existsArr[i]=="T" ){
+                $("#infotr" + i + "").append("<td ><button  class='btn btn-accent' style='width:100px;background:#228b22;border-color:#228b22;'>Tested</button></td>");
+            }
+            else if((existsArr[i-1]=="T" && existsArr[i]=="F" )||(i==0 &&existsArr[i]=="F")){
+                $("#infotr" + i + "").append("<td ><button  class='btn btn-accent' style='width:100px;'>Testing</button></td>");
+            }
+            else{
+                $("#infotr" + i + "").append("<td ><button  class='btn btn-accent' style='width:100px;background:#dcdcdc;border-color:#dcdcdc'>Untest</button></td>");
+            }
+            $("#infotr" + i + "").append("<td >"+timeAll[i]+"</td>");
+        }
+
+        for(var i=0;i<m;i++) {
+            $("#pic").append("<tr id='sec" + i + "'></tr>");
+            {#$("#sec" + i + "").append("<td>" + blockGasLimit[i] + "</td>");#}
+            for (var j = 0; j < n; j++) {
+                if (existsArr[i * n + j] == "T") {
+                    $("#sec" + i + "").append("<td><div id='canvasDiv" + (i * n + j) + "'style='display:inline;'></div></td>");
+                    var data = [
+                        {
+                            name: 'Frequence',
+                            value: allvalues[i * n + j],
+                            color: '#aad0db',
+                            line_width: 2
+                        }
+                    ];
+
+                    var chart = new iChart.LineBasic2D({
+                        render: 'canvasDiv' + (i * n + j),
+                        data: data,
+                        width: 500,
+                        height: 400,
+                        title : {
+				        text:'Latency with Different Frequencies when Difficulty='+difficulty[j]+', GasLimit='+blockGasLimit[i]+'',
+				        fontsize:12,
+				        color:'#000000'
+			            },
+			        subtitle : {
+                            fontsize:10,
+				        text:'x-coordinate: frequency|y-coordinate: latency',
+				        color:'#333333'
+			        },
+                        background_color: '#FEFEFE',
+                        tip: {
+                            enable: true,
+                            shadow: true,
+                            move_duration: 400,
+                            border: {
+                                enable: true,
+                                radius: 5,
+                                width: 2,
+                                color: '#3f8695'
+                            },
+                            listeners: {
+                                //tip:提示框对象、name:数据名称、value:数据值、text:当前文本、i:数据点的索引
+                                parseText: function (tip, name, value, text, i) {
+                                    return "Latency:" + value;
+                                }
+                            }
+                        },
+                        crosshair: {
+                            enable: true,
+                            line_color: '#62bce9'//十字线的颜色
+                        },
+                        sub_option: {
+                            label: false,
+                            point_size: 10
+                        },
+                        coordinate: {
+                            width: 240,
+                            height: 240,
+                            axis: {
+                                color: '#dcdcdc',
+                                width: 1
+                            },
+                            scale: [{
+                                position: 'left',
+                                start_scale: 0,
+                                end_scale: 300,
+                                scale_space: 30,
+                                scale_size: 2,
+                                scale_color: '#9f9f9f'
+                            }, {
+                                position: 'bottom',
+                                labels: alllabels[i * n + j]
+                            }]
+                        }
+
+                    });
+
+                    //开始画图
+                    chart.draw();
+                    imgurls.push(chart.toDataURL()) ;
+                }
+                else{
+                    $("#sec" + i + "").append("<td><div id='canvasDiv" + (i * n + j) + "'style='display:inline;'></div></td>");
+                    var data = [
+                        {
+                            name: 'Frequence',
+                            value: [0,0,0,0],
+                            color: '#dcdcdc',
+                            line_width: 2
+                        }
+                    ];
+
+                    var chart = new iChart.LineBasic2D({
+                        render: 'canvasDiv' + (i * n + j),
+                        data: data,
+                        width: 500,
+                        height: 400,
+                        background_color: '#dcdddf',
+                        title : {
+				        text:'Latency with Different Frequencies when Difficulty='+difficulty[j]+', GasLimit='+blockGasLimit[i]+'',
+				        fontsize:12,
+				        color:'#000000'
+			            },
+			        subtitle : {
+                            fontsize:10,
+				        text:'x-coordinate: frequency|y-coordinate: latency',
+				        color:'#333333'
+			        },
+                        crosshair: {
+                            enable: true,
+                            line_color: '#dcdcdc'//十字线的颜色
+                        },
+                        sub_option: {
+                            label: false,
+                            point_size: 10
+                        },
+                        coordinate: {
+                            width: 240,
+                            height: 240,
+                            axis: {
+                                color: '#dcdcdc',
+                                width: 1
+                            },
+                            scale: [{
+                                position: 'left',
+                                start_scale: 0,
+                                end_scale: 300,
+                                scale_space: 30,
+                                scale_size: 2,
+                                scale_color: '#9f9f9f'
+                            }, {
+                                position: 'bottom',
+                                labels: ['1tps','2tps','4tps','8tps']
+                            }]
+                        }
+
+                    });
+                    //利用自定义组件构造左侧说明文本
+                    //开始画图
+                    chart.draw();
+                }
+            }
+        }
+        $("a[name='download']").click(function (e) {
+            {#alert(imgurls.length)#}
+            $.ajax({
+                url: "/download/",
+                type: "POST",
+                data: {
+                    'urls':JSON.stringify(imgurls),
+                    'name':"generalLatency"
+                                },
+                traditional:true,
+                success: function (data) {
+                    window.location.href = "/load";
+                                    }
+
+                            })
+        });
+    		});
+
+    </script>
+  </head>
+  <body class="h-100">
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Main Sidebar -->
+        <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+          <div class="main-navbar">
+            <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+              <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                  <img id="main-logo" class="d-inline-block align-top mr-1" style="max-width: 25px;" src="../static/images/shards-dashboards-logo.svg" alt="Shards Dashboard">
+                  <span class="d-none d-md-inline ml-1">PerTether</span>
+                </div>
+              </a>
+              <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+            </nav>
+          </div>
+          <div class="nav-wrapper">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link " href="/throughput">
+                  <i class="material-icons">vertical_split</i>
+                  <span>Throughput</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/latency">
+                  <i class="material-icons">table_chart</i>
+                  <span>General Latency</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " href="/txCompletion">
+                  <i class="material-icons">note_add</i>
+                  <span>TX Completion</span>
+                </a>
+              </li>
+							<li class="nav-item">
+							  <a class="nav-link " href="/detailedLatency">
+							    <i class="material-icons">view_module</i>
+							    <span>Detailed Latency</span>
+							  </a>
+							</li>
+            </ul>
+          </div>
+        </aside>
+        <!-- End Main Sidebar -->
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
+          <div class="main-navbar sticky-top bg-white">
+            <!-- Main Navbar -->
+            <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+              <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                <div class="input-group input-group-seamless ml-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <!-- <i class="fas fa-search"></i> -->
+                    </div>
+                  </div>
+                  <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search"> </div>
+              </form>
+              <ul class="navbar-nav border-left flex-row " style="float: right">
+                  <li class="nav-item border-right dropdown notifications">
+                  <a name="download" class="nav-link text-nowrap px-3" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      <img class="user-avatar  mr-2" src="../static/images/avatars/download.png" alt="User Avatar">
+                      <span class="d-none d-md-inline-block">Download</span>
+                    </a>
+                  </li>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link text-nowrap px-3" href="/experiment" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img class="user-avatar  mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
+                    <span class="d-none d-md-inline-block">Configuration</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- / .main-navbar -->
+          <div class="main-content-container container-fluid px-4" style="overflow-x: scroll">
+            <!-- Page Header -->
+            <div class="page-header row no-gutters py-4 mb-3 ">
+              <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <!--<span class="text-uppercase page-subtitle">Overview</span>-->
+                <h3 class="page-title">Testing Results</h3>
+              </div>
+            </div>
+            <!-- End Page Header -->
+            <div class="row">
+                  <div class="col-lg-12" style="text-align: justify; ">
+					<table id="info" class="table mb-0" >
+
+                    </table>
+              </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12" style="text-align: center;">
+					<table id="pic" class="table mb-0">
+                    </table>
+              </div>
+              </div>
+
+
+            </div>
+            <!-- End Default Light Table -->
+          </div>
+                       
+
+          <footer class="main-footer d-flex bg-white border-top">
+
+            <span class="copyright " style="text-align: center; margin: 30px 450px;">Copyright © 2019 </span>
+          </footer>
+        </main>
+      </div>
+    </div>
+
+    <script src="../static/scripts/jquery.min.js"  ></script>
+    <script src="../static/scripts/popper.min.js"  ></script>
+    <script src="../static/scripts/bootstrap.min.js" ></script>
+    <script src="../static/scripts/Chart.min.js"></script>
+    <script src="../static/scripts/shards.min.js"></script>
+    <script src="../static/scripts/jquery.sharrre.min.js"></script>
+    <script src="../static/scripts/extras.1.1.0.min.js"></script>
+    <script src="../static/scripts/shards-dashboards.1.1.0.min.js"></script>
+    <script src="../static/scripts/app/app-components-overview.1.1.0.js"></script>
+  </body>
+</html>

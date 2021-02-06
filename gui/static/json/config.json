@@ -1,0 +1,1 @@
+{"difficulty": ["0x0"], "gasLimit": ["10000000"], "nodeCount": 4, "startUpType": "docker", "clientType": "geth", "minerCount": 2, "user": "sonia123", "startTps": 0, "duration": 0, "smartContract": "", "status": "pending", "startTime": 1612151717, "failure": [{"type": "", "startAfter": 0, "duration": 0, "level": 1, "label": "", "nodeName": ""}]}
