@@ -360,16 +360,25 @@ def load(request):
 def login(request):
     is_valid = auth.user_login(request)
     if is_valid:
-        return redirect(reverse('task_list'))
+        tool_type = request.POST.get("tooltype", None)
+        if tool_type=="pertether":
+            return redirect(reverse('task_list'))
+        else:
+            return HttpResponseRedirect("https://www.baidu.com/")  #访问http://127.0.0.1:8000/index/  跳转到了 https://www.baidu.com/
     else:
         return render(request, 'login_py.html', {"err_msg": "Wrong username or password."})
 
 
 def signup(request):
-    if auth.sign_up(request):
-        return render(request, 'signup_py.html', {"err_msg": "Sign up success."})
-    else:
+    
+    try:
+        if auth.sign_up(request):
+            return render(request, 'signup_py.html', {"err_msg": "Sign up success."})
+        else:
+            return render(request, 'signup_py.html', {"err_msg": "Sign up failed."})
+    except:
         return render(request, 'signup_py.html', {"err_msg": "Sign up failed."})
+
 
 
 def logout(request):

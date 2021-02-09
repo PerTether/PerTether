@@ -1,0 +1,24 @@
+failure:
+- type: nodeFailure
+  startAfter: 10
+  duration: 20
+  level: 1
+  nodeName: node1
+  label: node failure test
+- type: smartContract
+  startAfter: 10
+  duration: 10
+  level: 1
+  contractName: BadPerformance
+  label: bad performace test
+- type: application-normal
+  startAfter: 10
+  duration: 10
+  level: 1
+  label: flow test
+- type: network-packageLoss
+  startAfter: 20
+  duration: 60
+  level: 1
+  nodeName: node0
+  label: network failure test

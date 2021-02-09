@@ -39,7 +39,7 @@
               <li class="nav-item">
                 <a class="nav-link " href="/list">
                   <i class="material-icons">note_add</i>
-                  <span>Main Page</span>
+                  <span class="lang" key="Mainpage">Main Page</span>
                 </a>
               </li>
             </ul>
@@ -70,15 +70,21 @@
                 <li class="nav-item ">
                   <a class="nav-link text-nowrap px-3" href="/experiment" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar  mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Configuration</span>
+                    <span class="d-none d-md-inline-block lang" key="Configuration">Configuration</span>
                   </a>
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link text-nowrap px-3" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Logout</span>
+                    <span class="d-none d-md-inline-block" key="Logout">Logout</span>
                   </a>
                 </li>
+                <li>
+                    <button class='btn btn-accent translate' id="zh" style="width: 100px; margin-top: 10px;">中文</button>
+                  </li>
+                  <li>
+                    <button class='btn btn-accent translate' id="en" style="width: 100px; margin-top: 10px;margin-left: 10px;">English</button>
+                  </li>
               </ul>
             </nav>
           </div>
@@ -88,7 +94,7 @@
             <div class="page-header row no-gutters py-4 mb-3 ">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <!--<span class="text-uppercase page-subtitle">Overview</span>-->
-                <h3 class="page-title">Testing Results</h3>
+                <h3 class="page-title lang" key="TestingResults">Testing Results</h3>
               </div>
             </div>
             <!-- End Page Header -->
@@ -100,20 +106,20 @@
                            <table id="info" class="table mb-0" >
                                <thead style="font-weight: bold;">
                                <tr>
-                                   <td style="vertical-align: middle;" rowspan="2">Period</td>
-                                   <td style="vertical-align: middle;" rowspan="2">From</td>
-                                   <td style="vertical-align: middle;" rowspan="2">To</td>
-                                   <td colspan="2">Throughput</td>
-                                   <td colspan="2">Latency</td>
-                                   <td colspan="2">Success Rate</td>
+                                   <td style="vertical-align: middle;" rowspan="2" class="lang" key="Period">Period</td>
+                                   <td style="vertical-align: middle;" rowspan="2" class="lang" key="From">From</td>
+                                   <td style="vertical-align: middle;" rowspan="2" class="lang" key="To">To</td>
+                                   <td colspan="2" class="lang" key="Throughput">Throughput</td>
+                                   <td colspan="2" class="lang" key="Latency">Latency</td>
+                                   <td colspan="2" class="lang" key="Successrate">Success Rate</td>
                                </tr>
                                <tr>
-                                   <td>Mean</td>
-                                   <td>Median</td>
-                                   <td>Mean</td>
-                                   <td>Median</td>
-                                   <td>Mean</td>
-                                   <td>Median</td>
+                                   <td class="lang" key="Mean">Mean</td>
+                                   <td class="lang" key="Median">Median</td>
+                                   <td class="lang" key="Mean">Mean</td>
+                                   <td class="lang" key="Median">Median</td>
+                                   <td class="lang" key="Mean">Mean</td>
+                                   <td class="lang" key="Median">Median</td>
                                </tr>
                                </thead>
                                <tr>
@@ -226,6 +232,70 @@
         </main>
       </div>
     </div>
+    <script type="text/javascript">
+        var arrLang = {
+        "en": {
+          "Mainpage": "Main Page",
+          "Configuration": "Configuration",
+          "Logout": "Logout",
+          "TestingResults":"Testing Results",
+          "Period":"Period",
+          "From": "From",
+          "To": "To",
+          "Throughput": "Throughput",
+          "Latency":"Latency",
+          "Successrate": "Success Rate",
+          "Mean":"Mean",
+          "Median": "Median",
+         
+          
+        },
+        "zh": {
+          "Mainpage": "主页",
+          "Configuration": "配置",
+          "Logout": "退出",
+          "TestingResults":"测试结果",
+          "Period":"时间",
+          "From": "从",
+          "To": "到",
+          "Throughput": "吞吐量",
+          "Latency":"延迟",
+          "Successrate": "成功率",
+          "Mean":"平均数",
+          "Median": "中位数",
+         
+        }
+};
+
+// The default language is English
+var lang = "en";
+// Check for localStorage support
+if('localStorage' in window){
+   var lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+   if (!Object.keys(arrLang).includes(lang)) lang = 'en';
+}
+
+$(document).ready(function() {
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+
+// get/set the selected language
+$(".translate").click(function() {
+  var lang = $(this).attr("id");
+
+  // update localStorage key
+  if('localStorage' in window){
+    localStorage.setItem('lang', lang);
+    console.log( localStorage.getItem('lang') );
+  }
+
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+    </script>
     <script type="text/javascript">
         var myChart = echarts.init(document.getElementById('throughput'));
             option = {

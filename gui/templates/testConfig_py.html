@@ -48,7 +48,7 @@
                 <li class="nav-item">
 							  <a class="nav-link " href="/testConfig">
 							    <i class="material-icons">note_add</i>
-							    <span>Failure Configuration</span>
+							    <span class="lang" key="FC">Failure Configuration</span>
 							  </a>
                 </li>
             </ul>
@@ -72,14 +72,20 @@
                 <li class="nav-item ">
                   <a class="nav-link text-nowrap px-3" href="/list" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar  mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Test List</span>
+                    <span class="d-none d-md-inline-block lang" key="Testlist">Test List</span>
                   </a>
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link text-nowrap px-3" href="/logout" role="button" aria-haspopup="true" aria-expanded="false">
                     <img class="user-avatar mr-2" src="../static/images/avatars/experiment.png" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Logout</span>
+                    <span class="d-none d-md-inline-block lang" key="Logout">Logout</span>
                   </a>
+                </li>
+                <li>
+                  <button class='btn btn-accent translate' id="zh" style="width: 100px; margin-top: 10px;">中文</button>
+                </li>
+                <li>
+                  <button class='btn btn-accent translate' id="en" style="width: 100px; margin-top: 10px;margin-left: 10px;">English</button>
                 </li>
               </ul>
             </nav>
@@ -90,7 +96,7 @@
             <div class="page-header row no-gutters py-4 mb-3 border-bottom">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <!--<span class="text-uppercase page-subtitle">Overview</span>-->
-                <h3 class="page-title">Configuration</h3>
+                <h3 class="page-title lang" key="Configuration">Configuration</h3>
                 <!--(Tips:If you enter multiple values, please separate them with spaces.)-->
               </div>
             </div>
@@ -104,11 +110,11 @@
                           <div class="row">
                             <div class="col">
                                 <div class="form-row">
-                                    <span><b>&nbsp;&nbsp;Performance Test Configuration</b></span>
+                                    <span ><b class="lang" key="PTC">&nbsp;&nbsp;Performance Test Configuration</b></span>
                                 </div>
                                 <br>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Request Rate(tx/s)</b></span>
+                                      <span ><b class="lang" key="RR">&nbsp;&nbsp;Request Rate(tx/s)</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
@@ -116,7 +122,7 @@
                                   </div>
                                 </div>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Duration(s)</b></span>
+                                      <span ><b class="lang" key="Durations">&nbsp;&nbsp;Duration(s)</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
@@ -124,7 +130,7 @@
                                   </div>
                                 </div>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Smart Contract</b></span>
+                                      <span ><b class="lang" key="SmartContract">&nbsp;&nbsp;Smart Contract</b></span>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12">
@@ -146,11 +152,11 @@
                           <div class="row">
                             <div class="col">
                                 <div class="form-row">
-                                    <span><b>&nbsp;&nbsp;Failure Configuration</b></span>
+                                    <span ><b class="lang" key="FC">&nbsp;&nbsp;Failure Configuration</b></span>
                                 </div>
                                 <br>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Type</b></span>
+                                      <span ><b class="lang" key="Type">&nbsp;&nbsp;Type</b></span>
                                   </div>
                                 <div class="form-row">
                                       <div class="form-group col-md-12">
@@ -164,7 +170,7 @@
                                     </div>
                                 </div>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Start Time(s)</b></span>
+                                      <span ><b class="lang" key="Starttime">&nbsp;&nbsp;Start Time(s)</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
@@ -172,7 +178,7 @@
                                   </div>
                                 </div>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Duration(s)</b></span>
+                                      <span ><b class="lang" key="Durations">&nbsp;&nbsp;Duration(s)</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
@@ -180,7 +186,7 @@
                                   </div>
                                 </div>
                                   <div class="form-row">
-                                        <span><b>&nbsp;&nbsp;Level</b></span>
+                                        <span ><b class="lang" key="Level">&nbsp;&nbsp;Level</b></span>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12">
@@ -188,7 +194,7 @@
                                       </div>
                                   </div>
                                 <div class="form-row">
-                                        <span><b>&nbsp;&nbsp;Node Name</b></span>
+                                        <span ><b class="lang" key="Nodename">&nbsp;&nbsp;Node Name</b></span>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12">
@@ -196,7 +202,7 @@
                                       </div>
                                   </div>
                                   <div class="form-row">
-                                        <span><b>&nbsp;&nbsp;Label</b></span>
+                                        <span ><b class="lang" key="Label">&nbsp;&nbsp;Label</b></span>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12">
@@ -204,7 +210,7 @@
                                       </div>
                                   </div>
                                     <br>
-                                <button type="submit" class="btn btn-accent" style="width: 100px" id="loaddingBtn">Start</button>
+                                <button type="submit" class="btn btn-accent lang" style="width: 100px" id="loaddingBtn" key="Start">Start</button>
                             </div>
                           </div>
                         </li>
@@ -225,7 +231,72 @@
         </main>
       </div>
     </div>
+    <script type="text/javascript">
+      var arrLang = {
+        "en": {
+          "FC":"Failure Configuration",
+          "Tasklist": "Task List",
+          "Configuration": "Configuration",
+          "Logout":"Logout",
+          "PTC": "Performance Test Configuration",
+          "RR": "Request Rate(tx/s)",
+          "Durations": "Duration(s)",
+          "SmartContract":"Smart Contract",
+          "Type": "Type",
+          "Starttime": "Start Time(s)",
+          "Level": "Level",
+          "Label": "Label",
+          "Nodename": "Node Name",
+          "Start":"Start",
+        },
+        "zh": {
+          "FC":"故障配置",
+          "Tasklist": "任务列表",
+          "Configuration": "配置",
+          "Logout":"退出",
+          "PTC": "性能测试配置",
+          "RR": "请求速率(tx/s)",
+          "Durations": "耗时(s)",
+          "SmartContract":"智能合约",
+          "Type": "类型",
+          "Starttime": "开始时间(s)",
+          "Level": "级别",
+          "Label": "标签",
+          "Nodename": "节点名",
+          "Start":"开始",
+        }
+};
 
+// The default language is English
+var lang = "en";
+// Check for localStorage support
+if('localStorage' in window){
+   var lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+   if (!Object.keys(arrLang).includes(lang)) lang = 'en';
+}
+
+$(document).ready(function() {
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+
+// get/set the selected language
+$(".translate").click(function() {
+  var lang = $(this).attr("id");
+
+  // update localStorage key
+  if('localStorage' in window){
+    localStorage.setItem('lang', lang);
+    console.log( localStorage.getItem('lang') );
+  }
+
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+
+    </script>
     <!-- <script src="../static/scripts/jquery.min.js"  ></script> -->
     <script src="../static/scripts/popper.min.js"  ></script>
     <script src="../static/scripts/bootstrap.min.js" ></script>

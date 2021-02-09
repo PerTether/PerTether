@@ -15,6 +15,8 @@
 		<script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
 		<script src="../static/scripts/FileSaver.js"></script>
             <script type="text/javascript" src="../static/scripts/ichart.1.2.1.min.js"></script>
+    
+    
   </head>
   <body class="h-100">
 
@@ -38,22 +40,22 @@
           <div class="nav-wrapper">
             <ul class="nav flex-column">
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link " href="#">
                   <i class="material-icons">table_chart</i>
-                  <span>Introduction</span>
+                  <span class="lang" key="Introduction">Introduction</span>
                 </a>
-              </li>
+              </li> -->
                 <li class="nav-item">
                   <a class="nav-link " href="#">
                     <i class="material-icons">note_add</i>
-                    <span>Login</span>
+                    <span class="lang" key="Login">Login</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="/signup">
                     <i class="material-icons">note_add</i>
-                    <span>Sign up</span>
+                    <span class="lang" key="Signup">Sign up</span>
                   </a>
                 </li>
             </ul>
@@ -73,21 +75,14 @@
                   </div>
                  </div>
               </form>
-<!--              <ul class="navbar-nav border-left flex-row " style="float: right">
-                <li class="nav-item border-right dropdown notifications">
-                  <a class="nav-link text-nowrap px-3" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      <img class="user-avatar  mr-2" src="images/avatars/file.png" alt="User Avatar">
-                      <span class="d-none d-md-inline-block">File</span>
-                    </a>
-                  </li>
-                </li>
-                <li class="nav-item ">
-                  <a class="nav-link text-nowrap px-3" href="experiment.html" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar  mr-2" src="images/avatars/experiment.png" alt="User Avatar">
-                    <span class="d-none d-md-inline-block">Experiment</span>
-                  </a>
-                </li>
-              </ul> -->
+             <ul class="navbar-nav border-left flex-row " style="float: right">
+              <li>
+                <button class='btn btn-accent translate' id="zh" style="width: 100px; margin-top: 10px;">中文</button>
+              </li>
+              <li>
+                <button class='btn btn-accent translate' id="en" style="width: 100px; margin-top: 10px;margin-left: 10px;">English</button>
+              </li>
+              </ul>
             </nav>
           </div>
           <!-- / .main-navbar -->
@@ -96,7 +91,7 @@
             <div class="page-header row no-gutters py-4 mb-3 border-bottom">
               <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <!--<span class="text-uppercase page-subtitle">Overview</span>-->
-                <h3 class="page-title">Login</h3>
+                <h3 class="page-title lang" key="Login">Login</h3>
                 <!--(Tips:If you enter multiple values, please separate them with spaces.)-->
               </div>
             </div>
@@ -114,7 +109,7 @@
                                 </div>
                                 <br>
                                   <div class="form-row">
-                                      <span><b>&nbsp; Username</b></span>
+                                      <span ><b class="lang" key="Username">&nbsp; Username</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
@@ -122,15 +117,26 @@
                                   </div>
                                 </div>
                                   <div class="form-row">
-                                      <span><b>&nbsp;&nbsp;Password</b></span>
+                                      <span ><b class="lang" key="Password">&nbsp;&nbsp;Password</b></span>
                                   </div>
                                 <div class="form-row">
                                   <div class="form-group col-md-12">
                                       <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required">
                                   </div>
                                 </div>
+                                <div class="form-row">
+                                  <span><b  class="lang" key="Tool">&nbsp;&nbsp;Tool</b></span>
+                              </div>
+                                <div class="form-row">
+                                  <div class="form-group col-md-12">
+                                        <select name="tooltype" id="tooltype"  class="form-control" required>
+                                            <option value="musc">MuSC</option>
+                                            <option value="pertether">PerTether</option>
+                                        </select>
+                                </div>
+                            </div>
 
-                                  <button type='submit' id='nextbtn' class='btn btn-accent' style="width: 100px;float: right">Login</button>
+                                  <button type='submit' id='nextbtn' class='btn btn-accent lang' style="width: 100px;float: right" key="Login">Login</button>
                             </div>
                           </div>
                         </li>
@@ -151,7 +157,56 @@
         </main>
       </div>
     </div>
+    <script type="text/javascript">
+      var arrLang = {
+        "en": {
+          "Login": "Login",
+          "Introduction": "Introduction",
+          "Username": "   Username",
+          "Password": "   Password",
+          "Tool": "   Tool",
+          "Signup":"Sign Up",
+        },
+        "zh": {
+          "Login": "登录",
+          "Introduction": "简介",
+          "Username": "   用户名",
+          "Password": "   密码",
+          "Tool": "   工具",
+          "Signup":"注册",
+        }
+};
 
+// The default language is English
+var lang = "en";
+// Check for localStorage support
+if('localStorage' in window){
+   var lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+   if (!Object.keys(arrLang).includes(lang)) lang = 'en';
+}
+
+$(document).ready(function() {
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+
+// get/set the selected language
+$(".translate").click(function() {
+  var lang = $(this).attr("id");
+
+  // update localStorage key
+  if('localStorage' in window){
+    localStorage.setItem('lang', lang);
+    console.log( localStorage.getItem('lang') );
+  }
+
+  $(".lang").each(function(index, element) {
+    $(this).text(arrLang[lang][$(this).attr("key")]);
+  });
+});
+
+    </script>
     <script src="../static/scripts/jquery.min.js"  ></script>
     <script src="../static/scripts/popper.min.js"  ></script>
     <script src="../static/scripts/bootstrap.min.js" ></script>
