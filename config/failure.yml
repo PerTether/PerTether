@@ -5,3 +5,9 @@ failure:
   level: 1
   nodeName: node0
   label: network failure test
+- type: nodeFailure
+  startAfter: 10
+  duration: 20
+  level: 1
+  nodeName: node1
+  label: node failure test

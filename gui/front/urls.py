@@ -25,6 +25,7 @@ urlpatterns = [
     url('detailedResult/', views.detailed_result),
     url('list/', views.task_list, name='task_list'),
     url('testConfig/', views.test_config),
+     url('testConfigMulti/', views.test_configMulti),
     url('load/', views.load),
     url('user_login/', views.login),
     url('user_signup/', views.signup),

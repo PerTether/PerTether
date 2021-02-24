@@ -141,6 +141,107 @@ def test_config(request):
  
     return HttpResponseRedirect("/list")
 
+@login_required
+def test_configMulti(request):
+    username = request.user.username
+    start_tps = 0
+    duration = 0
+    smart_contract = ""
+    failure_type = ""
+    start_time = 0
+    failure_duration = 0
+    level = 1
+    xxx_name = ""
+    label = ""
+    if request.method == "POST":
+        start_tps = int(request.POST.get("startTps", None))
+        duration = int(request.POST.get("duration", None))
+        smart_contract = request.POST.get("smartContract", None)
+        failure_type = request.POST.get("type", None)
+        start_time = int(request.POST.get("startAfter", None))
+        xxx_name = request.POST.get("nodeName", None)
+        failure_duration = int(request.POST.get("failure_duration", None))
+        level = int(request.POST.get("level", None))
+        label = request.POST.get("label", None)
+        failure_type2 = request.POST.get("type2", None)
+        start_time2 = int(request.POST.get("startAfter2", None))
+        xxx_name2 = request.POST.get("nodeName2", None)
+        failure_duration2 = int(request.POST.get("failure_duration2", None))
+        level2 = int(request.POST.get("level2", None))
+        label2 = request.POST.get("label2", None)
+    else:
+        return render(request, 'testConfigMulti_py.html')
+    test_config = util.read_json('static/json/config.json')
+    test_config['user'] = username
+    test_config['startTps'] = start_tps
+    test_config['duration'] = duration
+    test_config['smartContract'] = smart_contract
+    test_config['status'] = 'pending'
+    test_config['startTime'] = int(time.time())
+    if not validate.validate_test_config(test_config):
+        return render(request, 'testConfigMulti_py.html', {'err_msg': 'Invalid test config.'})
+    failure_config = [{
+        'type': failure_type,
+        'startAfter': start_time,
+        'duration': failure_duration,
+        'level': level,
+        'label': label
+    },{
+        'type': failure_type2,
+        'startAfter': start_time2,
+        'duration': failure_duration2,
+        'level': level2,
+        'label': label2
+    }]
+    xxx_name_label = "nodeName"
+    if failure_type == "smartContract":
+        xxx_name_label = "contractName"
+    failure_config[0][xxx_name_label] = xxx_name
+    xxx_name_label2 = "nodeName"
+    if failure_type2 == "smartContract":
+        xxx_name_label2 = "contractName"
+    failure_config[1][xxx_name_label2] = xxx_name2
+    if not validate.validate_failure_config(failure_config):
+        return render(request, 'testConfigMulti_py.html', {'err_msg': 'Invalid failure config.'})
+    util.write_yaml('static/json/failure.yaml', {'failure': failure_config})
+    # test_config['failure'] = [failure_config]
+    # 修改
+    test_config['failure'] = failure_config
+    util.write_json('static/json/config.json', test_config)
+    # 20210131新增调用命令行
+    flag=1
+    if(flag==1):
+        print('start')
+        os.chdir('..')
+        result = subprocess.run(['which', 'node'],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        nodeCmd = result.stdout.decode("utf-8").replace('\n', '')
+        pnode = subprocess.Popen(
+            [nodeCmd, 'src/main.js', '-p', 'gui/static/json/', '-c', 'gui/static/json/config.json'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        # 打印输出
+        while pnode.poll() is None:
+            line = pnode.stdout.readline()
+            line = line.strip()
+            if line:
+                print('Subprogram output: [{}]'.format(line))
+        os.chdir('gui')
+        if os.path.exists("static/json/report.json"):
+            with open("static/json/report.json", 'r') as load_data:
+                info = json.load(load_data)
+                print(info)
+                test_config['result']=info['result']
+                test_config['status'] = 'success'
+
+    
+    db_helper.insert(test_config)
+    
+    # 跳转
+ 
+    return HttpResponseRedirect("/list")
+
 
 @login_required
 def detailed_result(request):
@@ -183,7 +284,9 @@ def detailed_result(request):
         ]
     }
     if 'failure' in data:
-        failure = data['result'][0]['failureInfo']
+        # failure = data['result'][0]['failureInfo']
+        # 前后一致
+        failure = data['failure']
         failure_metrics = []
         before, after = sys.maxsize, 0
         for f in failure:
@@ -200,15 +303,16 @@ def detailed_result(request):
             }
             f_mean_t = data_process.get_mean_by_period(raw_throughput, f_s, f_f)
             f_mean_l = data_process.get_mean_by_period(raw_latency, f_s, f_f)
-            print(raw_throughput)
-            print(raw_latency)
-            print(raw_succ)
+            # print(raw_throughput)
+            # print(raw_latency)
+            # print(raw_succ)
             f_mean_s = data_process.get_mean_by_period(raw_succ, f_s, f_f)
             f_median_t = data_process.get_median_by_period(raw_throughput, f_s, f_f)
             f_median_l = data_process.get_median_by_period(raw_latency, f_s, f_f)
             f_median_s = data_process.get_median_by_period(raw_succ, f_s, f_f)
             f_tmp['metrics'] = [f_mean_t, f_mean_l, f_mean_s, f_median_t, f_median_l, f_median_s]
             failure_metrics.append(f_tmp)
+            # print(f_tmp)
 
         before_mean_throughput = data_process.get_mean_by_period(raw_throughput, 0, before)
         before_mean_latency = data_process.get_mean_by_period(raw_latency, 0, before)
@@ -262,7 +366,7 @@ def detailed_result(request):
         data['result'][0]['throughput'] = raw_throughput
         data['result'][0]['latency'] = raw_latency
         data['result'][0]['success_rate'] = raw_succ
-    print(res)
+    # print(res)
     return render(request, 'list_detailedLatency_py.html', res)
 
 
@@ -364,7 +468,7 @@ def login(request):
         if tool_type=="pertether":
             return redirect(reverse('task_list'))
         else:
-            return HttpResponseRedirect("https://www.baidu.com/")  #访问http://127.0.0.1:8000/index/  跳转到了 https://www.baidu.com/
+            return HttpResponseRedirect("http://8.136.118.225:8888/mutestdemo/musc/")  #访问http://127.0.0.1:8000/index/  跳转到了 https://www.baidu.com/
     else:
         return render(request, 'login_py.html', {"err_msg": "Wrong username or password."})
 
